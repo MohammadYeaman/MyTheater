@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Streaming Theater</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #1a1a1a; /* Dark background */
+      color: #e0e0e0; /* Light text */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .theater-container {
+      width: 80%; /* Adjust as needed */
+      max-width: 960px;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff6600; /* Orange accent */
+      margin-bottom: 20px;
+    }
+
+    video {
+      width: 100%;
+      max-height: 70vh; /* Limit video height */
+      background-color: #000; /* Black video background*/
+      border-radius: 8px; /* Rounded corners */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    }
+
+    .video-description {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #333; /* Darker background */
+      border-radius: 8px;
+    }
+
+    .video-description p {
+      line-height: 1.6;
+    }
+
+    a{
+        color: #ff6600;
+        text-decoration: none;
+    }
+
+    a:hover{
+        text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="theater-container">
+    <h1>My Streaming Theater</h1>
+
+    <video controls allowfullscreen>
+      <source src="https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/TRIAL____________friends_s01e01_720p_bluray_x264-sujaidr.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <div class="video-description">
+      <p>This is a short video showcasing Friends Season 01</p>
+      <p>If you have any issues, please <a href="mailto:mdyeaman01@gmail.com">contact me</a>.</p>
+    </div>
+  </div>
+
+</body>
+</html>
