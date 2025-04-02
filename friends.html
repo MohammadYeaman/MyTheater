@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Friends - Series</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-color: #141414;
+            color: #e1e1e1;
+        }
+
+        .series-header {
+            /*background-image: url('friends_banner.jpg');  Replace with your banner image */
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .series-header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .content-container {
+            padding: 20px;
+        }
+
+        #season-select {
+            background-color: #333;
+            color: #e1e1e1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .episode-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .episode-list li {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+        }
+
+        .episode-list li:hover {
+            background-color: #222;
+        }
+
+        #main-video {
+            width: 100%;
+            height: auto;
+            max-height: 400px; /* Adjust as needed */
+            background-color: black;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="series-header">
+        <h1>Friends</h1>
+    </div>
+
+    <div class="content-container">
+        <select id="season-select" onchange="updateEpisodes()">
+            <option value="1">Season 1</option>
+            <option value="2">Season 2</option>
+            <option value="3">Season 3</option>
+            </select>
+
+        <video id="main-video" controls></video>
+
+        <ul id="episode-list" class="episode-list">
+            </ul>
+    </div>
+
+    <script>
+        const episodes = {
+            1: [
+                { title: "S1 E1: The One Where Monica Gets a Roommate", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e01_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "S1 E2: The One with the Sonogram at the End", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e02_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "S1 E3: The One with the Thumb", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e03_720p_blurayx264-sujaidr_R.MP4" },
+                { title: "S1 E4: The One with George Stephanopoulos", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e04_720p_blurayx264-sujaidr_R.MP4" },
+                { title: "S1 E5: The One with the East German Laundry Detergent", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e05_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "S1 E6: The One with the Butt", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e06_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "S1 E7: The One with the Blackout", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e07_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "S1 E8: The One Where Nana Dies Twice", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e08_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "S10 E9: The One Where Underdog Gets Away", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e09_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "S1 E10: The One with the Monkey", video: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e10_720p_bluray_x264-sujaidr_R.MP4" },
+                // ... more episodes for season 1
+            ],
+            2: [
+                { title: "The One with Ross's New Girlfriend", video: "season2/episode1.mp4" },
+                { title: "The One with the Breast Milk", video: "season2/episode2.mp4" },
+                // ... more episodes for season 2
+            ],
+            3: [
+                { title: "The One with the Princess Leia Fantasy", video: "season3/episode1.mp4"},
+                { title: "The One Where No One's Ready", video: "season3/episode2.mp4"},
+            ]
+            // ... more seasons and episodes
+        };
+
+        function updateEpisodes() {
+            const season = document.getElementById('season-select').value;
+            const episodeList = document.getElementById('episode-list');
+            episodeList.innerHTML = ''; // Clear previous episodes
+
+            episodes[season].forEach(episode => {
+                const listItem = document.createElement('li');
+                listItem.textContent = episode.title;
+                listItem.onclick = () => {
+                    document.getElementById('main-video').src = episode.video;
+                };
+                episodeList.appendChild(listItem);
+            });
+        }
+
+        // Initial episode list load
+        updateEpisodes();
+    </script>
+
+</body>
+</html>
