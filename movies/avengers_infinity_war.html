@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends - Watch Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            color: #00509e;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        video {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .back-button:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+<body>
+    <script src="../auth.js"></script>
+    <script>checkAuth();</script>
+    <div class="container">
+        <h1>Avengers Infinity War</h1>
+
+        <video id="videoPlayer" controls>
+            <source id="videoSource" src="https://mytheater.s3.us-east-2.amazonaws.com/movies01/Avengers.Infinity.War.2018.1080p.WEBRip.x264-%5BYTS.AM%5D.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+    
+    <script>
+        function goBack() {
+            window.location.href = "../pages/landing_page.html"; // Change this to the actual main page URL
+        }
+    </script>
+</body>
+</html>

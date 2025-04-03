@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Stream</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #00509e;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #007acc;
+            padding: 15px 0;
+            transition: background-color 0.3s;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #ffdd57;
+        }
+        .content {
+            padding: 20px;
+        }
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .video-card {
+            background: #cce7ff;
+            padding: 10px;
+            border-radius: 8px;
+            width: 160px;
+            text-align: center;
+            color: #00509e;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .video-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .video-card img {
+            width: 160px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: opacity 0.3s;
+        }
+        .video-card img:hover {
+            opacity: 0.8;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .back-button:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+<body>
+    <script src="../auth.js"></script>
+    <script>checkAuth();</script>
+    <div class="navbar">
+        <a href="#" style="color: rgb(0, 0, 0); font-size: 24px;">Home</a>
+        <a href="#">Trending</a>
+        <a href="#">Categories</a>
+        <a href="#">Library</a>
+    </div>
+    <div class="content">
+        <div class="video-container" id="videoContainer">
+            <!-- Video cards will be inserted dynamically -->
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const videoContainer = document.getElementById("videoContainer");
+            const videos = [
+                { title: "Friends", thumbnail: "../seriesIcon/friends.jpg", path_for_video : "../series/friends.html" },
+                { title: "Avangers Infinity War", thumbnail: "../seriesIcon/avengerInfinityWar.jpg", path_for_video : "../movies/avengers_infinity_war.html" },
+                { title: "Backstreet Rookie", thumbnail: "../seriesIcon/backstreetRookie.jpg", path_for_video : "../series/backstreet_rookie.html" },
+                { title: "Friends", thumbnail: "", path_for_video : "n" },
+            ];
+
+            videos.forEach(video => {
+                const videoCard = document.createElement("div");
+                videoCard.classList.add("video-card");
+                videoCard.innerHTML = `
+                    <img src="${video.thumbnail}" alt="${video.title}">
+                    <p>${video.title}</p>
+                    <button class="back-button" onclick="goBack('${video.path_for_video}')">Watch</button>
+                `;
+                videoContainer.appendChild(videoCard);
+            });
+        });
+        function goBack(path) {
+            window.location.href = path; // Change this to the actual main page URL
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends - Watch Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            color: #00509e;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        video {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .back-button:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+<body>
+    <script src="../auth.js"></script>
+    <script>checkAuth();</script>
+    <div class="container">
+        <h1>Friends</h1>
+        <label for="seasonSelect">Select Season:</label>
+        <select id="seasonSelect" onchange="updateEpisodes()">
+            <option value="1">Season 1</option>
+            <option value="2">Season 2</option>
+            <option value="3">Season 3</option>
+        </select>
+        
+        <label for="episodeSelect">Select Episode:</label>
+        <select id="episodeSelect" onchange="updateVideo()">
+            <!-- Episodes will be populated dynamically -->
+        </select>
+        
+        <video id="videoPlayer" controls>
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+    
+    <script>
+        const episodes = {
+            1: [
+                { title: "Episode 1", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e01_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 2", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e02_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 3", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e03_720p_blurayx264-sujaidr_R.MP4" },
+                { title: "Episode 4", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e04_720p_blurayx264-sujaidr_R.MP4" },
+                { title: "Episode 5", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e05_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 6", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e06_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 7", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e07_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 8", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e08_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 9", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e09_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 10", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e10_720p_bluray_x264-sujaidr_R.MP4" },
+            ],
+            2: [
+                { title: "Episode 1", src: "season2_ep1.mp4" },
+                { title: "Episode 2", src: "season2_ep2.mp4" }
+            ],
+            3: [
+                { title: "Episode 1", src: "season3_ep1.mp4" },
+                { title: "Episode 2", src: "season3_ep2.mp4" }
+            ]
+        };
+
+        function updateEpisodes() {
+            const season = document.getElementById("seasonSelect").value;
+            const episodeSelect = document.getElementById("episodeSelect");
+            episodeSelect.innerHTML = "";
+            
+            episodes[season].forEach((episode, index) => {
+                const option = document.createElement("option");
+                option.value = episode.src;
+                option.textContent = episode.title;
+                episodeSelect.appendChild(option);
+            });
+            updateVideo();
+        }
+
+        function updateVideo() {
+            const videoSource = document.getElementById("videoSource");
+            const videoPlayer = document.getElementById("videoPlayer");
+            videoSource.src = document.getElementById("episodeSelect").value;
+            videoPlayer.load();
+        }
+
+        function goBack() {
+            window.location.href = "../pages/landing_page.html"; // Change this to the actual main page URL
+        }
+
+        document.addEventListener("DOMContentLoaded", updateEpisodes);
+    </script>
+</body>
+</html>
