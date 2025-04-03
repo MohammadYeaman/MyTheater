@@ -55,7 +55,7 @@
         <h1>Avengers Infinity War</h1>
 
         <video id="videoPlayer" controls>
-            <source id="videoSource" src="https://mytheater.s3.us-east-2.amazonaws.com/movies01/Avengers.Infinity.War.2018.1080p.WEBRip.x264-%5BYTS.AM%5D.mp4" type="video/mp4">
+            <source id="videoSource" src="" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         
@@ -66,6 +66,9 @@
         function goBack() {
             window.location.href = "../pages/landing_page.html"; // Change this to the actual main page URL
         }
+        const authKey = localStorage.getItem('authKey');
+        document.getElementById("videoSource").src = authKey + "movies01/Avengers.Infinity.War.2018.1080p.WEBRip.x264-%5BYTS.AM%5D.mp4";
+        window.alert(document.getElementById("videoSource").src)
     </script>
 </body>
 </html>

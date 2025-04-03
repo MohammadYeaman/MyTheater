@@ -75,33 +75,34 @@
     <script>
         const episodes = {
             1: [
-                { title: "Episode 1", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.1.v1.720p.mp4" },
-                { title: "Episode 2", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.2.v0.1080p.mp4" },
-                { title: "Episode 3", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.3.v0.720p.mp4" },
-                { title: "Episode 4", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.4.v0.720p.mp4" },
-                { title: "Episode 5", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.5.v0.720p.mp4" },
-                { title: "Episode 6", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.6.v0.720p.mp4" },
-                { title: "Episode 7", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.7.v0.720p.mp4" },
-                { title: "Episode 8", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.8.v0.720p.mp4" },
-                { title: "Episode 9", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.9.v0.720p.mp4" },
-                { title: "Episode 10", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.10.v0.720p.mp4" },
-                { title: "Episode 11", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.11.v0.720p.mp4" },
-                { title: "Episode 12", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.12.v0.720p.mp4" },
-                { title: "Episode 13", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.13.v0.720p.mp4" },
-                { title: "Episode 14", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.14.v0.720p.mp4" },
-                { title: "Episode 15", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.15.v0.720p.mp4" },
-                { title: "Episode 16", src: "https://mytheater.s3.us-east-2.amazonaws.com/BackstreetRookie/EP.16.v0.720p.mp4" },
+                { title: "Episode 1", src: "BackstreetRookie/EP.1.v1.720p.mp4" },
+                { title: "Episode 2", src: "BackstreetRookie/EP.2.v0.1080p.mp4" },
+                { title: "Episode 3", src: "BackstreetRookie/EP.3.v0.720p.mp4" },
+                { title: "Episode 4", src: "BackstreetRookie/EP.4.v0.720p.mp4" },
+                { title: "Episode 5", src: "BackstreetRookie/EP.5.v0.720p.mp4" },
+                { title: "Episode 6", src: "BackstreetRookie/EP.6.v0.720p.mp4" },
+                { title: "Episode 7", src: "BackstreetRookie/EP.7.v0.720p.mp4" },
+                { title: "Episode 8", src: "BackstreetRookie/EP.8.v0.720p.mp4" },
+                { title: "Episode 9", src: "BackstreetRookie/EP.9.v0.720p.mp4" },
+                { title: "Episode 10", src: "BackstreetRookie/EP.10.v0.720p.mp4" },
+                { title: "Episode 11", src: "BackstreetRookie/EP.11.v0.720p.mp4" },
+                { title: "Episode 12", src: "BackstreetRookie/EP.12.v0.720p.mp4" },
+                { title: "Episode 13", src: "BackstreetRookie/EP.13.v0.720p.mp4" },
+                { title: "Episode 14", src: "BackstreetRookie/EP.14.v0.720p.mp4" },
+                { title: "Episode 15", src: "BackstreetRookie/EP.15.v0.720p.mp4" },
+                { title: "Episode 16", src: "BackstreetRookie/EP.16.v0.720p.mp4" },
             ],
         };
 
         function updateEpisodes() {
             const season = document.getElementById("seasonSelect").value;
             const episodeSelect = document.getElementById("episodeSelect");
+            const authKey = localStorage.getItem('authKey');
             episodeSelect.innerHTML = "";
             
             episodes[season].forEach((episode, index) => {
                 const option = document.createElement("option");
-                option.value = episode.src;
+                option.value = authKey + episode.src;
                 option.textContent = episode.title;
                 episodeSelect.appendChild(option);
             });

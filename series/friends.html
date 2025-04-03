@@ -76,16 +76,16 @@
     <script>
         const episodes = {
             1: [
-                { title: "Episode 1", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e01_720p_bluray_x264-sujaidr_R.MP4" },
-                { title: "Episode 2", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e02_720p_bluray_x264-sujaidr_R.MP4" },
-                { title: "Episode 3", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e03_720p_blurayx264-sujaidr_R.MP4" },
-                { title: "Episode 4", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e04_720p_blurayx264-sujaidr_R.MP4" },
-                { title: "Episode 5", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e05_720p_bluray_x264-sujaidr_R.MP4" },
-                { title: "Episode 6", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e06_720p_bluray_x264-sujaidr_R.MP4" },
-                { title: "Episode 7", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e07_720p_bluray_x264-sujaidr_R.MP4" },
-                { title: "Episode 8", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e08_720p_bluray_x264-sujaidr_R.MP4" },
-                { title: "Episode 9", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e09_720p_bluray_x264-sujaidr_R.MP4" },
-                { title: "Episode 10", src: "https://mytheater.s3.us-east-2.amazonaws.com/Friends/FriendsSeason01/friends_s01e10_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 1", src: "Friends/FriendsSeason01/friends_s01e01_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 2", src: "Friends/FriendsSeason01/friends_s01e02_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 3", src: "Friends/FriendsSeason01/friends_s01e03_720p_blurayx264-sujaidr_R.MP4" },
+                { title: "Episode 4", src: "Friends/FriendsSeason01/friends_s01e04_720p_blurayx264-sujaidr_R.MP4" },
+                { title: "Episode 5", src: "Friends/FriendsSeason01/friends_s01e05_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 6", src: "Friends/FriendsSeason01/friends_s01e06_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 7", src: "Friends/FriendsSeason01/friends_s01e07_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 8", src: "Friends/FriendsSeason01/friends_s01e08_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 9", src: "Friends/FriendsSeason01/friends_s01e09_720p_bluray_x264-sujaidr_R.MP4" },
+                { title: "Episode 10", src: "Friends/FriendsSeason01/friends_s01e10_720p_bluray_x264-sujaidr_R.MP4" },
             ],
             2: [
                 { title: "Episode 1", src: "season2_ep1.mp4" },
@@ -101,10 +101,11 @@
             const season = document.getElementById("seasonSelect").value;
             const episodeSelect = document.getElementById("episodeSelect");
             episodeSelect.innerHTML = "";
-            
+            const authKey = localStorage.getItem('authKey');
+
             episodes[season].forEach((episode, index) => {
                 const option = document.createElement("option");
-                option.value = episode.src;
+                option.value = authKey + episode.src;
                 option.textContent = episode.title;
                 episodeSelect.appendChild(option);
             });
