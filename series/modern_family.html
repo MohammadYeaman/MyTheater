@@ -43,6 +43,18 @@
             cursor: pointer;
             text-align: center;
         }
+        .vlc-button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #cc8b00;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-align: center;
+        }
         .back-button:hover {
             background-color: #005fa3;
         }
@@ -77,6 +89,7 @@
             <source id="videoSource" src="" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <button class="vlc-button" id="vlcButton" onclick="openVLC()">Open VLC</button>
         
         <button class="back-button" onclick="goBack()">Back</button>
     </div>
@@ -378,6 +391,7 @@
 
             ],
         };
+        var vlc_url = "google.com"
 
         function updateEpisodes() {
             const season = document.getElementById("seasonSelect").value;
@@ -398,13 +412,16 @@
             const videoSource = document.getElementById("videoSource");
             const videoPlayer = document.getElementById("videoPlayer");
             videoSource.src = document.getElementById("episodeSelect").value;
+            vlc_url = "vlc://" + document.getElementById("episodeSelect").value;
             videoPlayer.load();
         }
 
         function goBack() {
             window.location.href = "../pages/landing_page.html"; // Change this to the actual main page URL
         }
-
+        function openVLC(){
+            window.open(vlc_url);
+        }
         document.addEventListener("DOMContentLoaded", updateEpisodes);
     </script>
 </body>
