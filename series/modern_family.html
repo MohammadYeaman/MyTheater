@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Family - Watch Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            color: #00509e;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        select, button {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        video {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .back-button:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+<body>
+    <script src="../auth.js"></script>
+    <script>checkAuth();</script>
+    <div class="container">
+        <h1>Modern Family</h1>
+        <label for="seasonSelect">Select Season:</label>
+        <select id="seasonSelect" onchange="updateEpisodes()">
+            <option value="1">Season 1</option>
+            <option value="2">Season 2</option>
+            <option value="3">Season 3</option>
+            <option value="4">Season 4</option>
+            <option value="5">Season 5</option>
+            <option value="6">Season 6</option>
+            <option value="7">Season 7</option>
+            <option value="8">Season 8</option>
+            <option value="9">Season 9</option>
+            <option value="10">Season 10</option>
+            <option value="11">Season 11</option>
+        </select>
+        
+        <label for="episodeSelect">Select Episode:</label>
+        <select id="episodeSelect" onchange="updateVideo()">
+            <!-- Episodes will be populated dynamically -->
+        </select>
+        
+        <video id="videoPlayer" controls>
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+    
+    <script>
+        const episodes = {
+            1: [
+                { title: "Episode 1", src: "modern_family/season01/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season01/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season01/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season01/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season01/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season01/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season01/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season01/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season01/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season01/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season01/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season01/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season01/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season01/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season01/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season01/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season01/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season01/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season01/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season01/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season01/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season01/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season01/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season01/modern_family_ep+(24).mkv" },
+            ],
+            2: [
+                { title: "Episode 1", src: "modern_family/season02/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season02/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season02/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season02/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season02/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season02/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season02/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season02/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season02/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season02/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season02/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season02/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season02/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season02/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season02/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season02/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season02/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season02/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season02/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season02/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season02/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season02/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season02/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season02/modern_family_ep+(24).mkv" }
+            ],
+            3: [
+                { title: "Episode 1", src: "modern_family/season03/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season03/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season03/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season03/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season03/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season03/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season03/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season03/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season03/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season03/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season03/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season03/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season03/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season03/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season03/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season03/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season03/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season03/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season03/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season03/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season03/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season03/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season03/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season03/modern_family_ep+(24).mkv" },
+
+            ],
+            4: [
+                { title: "Episode 1", src: "modern_family/season04/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season04/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season04/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season04/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season04/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season04/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season04/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season04/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season04/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season04/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season04/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season04/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season04/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season04/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season04/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season04/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season04/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season04/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season04/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season04/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season04/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season04/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season04/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season04/modern_family_ep+(24).mkv" }
+
+
+            ],
+            5: [
+                { title: "Episode 1", src: "modern_family/season05/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season05/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season05/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season05/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season05/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season05/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season05/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season05/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season05/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season05/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season05/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season05/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season05/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season05/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season05/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season05/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season05/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season05/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season05/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season05/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season05/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season05/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season05/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season05/modern_family_ep+(24).mkv" }
+            ],
+            6: [
+                { title: "Episode 1", src: "modern_family/season06/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season06/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season06/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season06/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season06/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season06/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season06/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season06/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season06/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season06/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season06/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season06/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season06/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season06/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season06/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season06/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season06/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season06/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season06/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season06/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season06/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season06/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season06/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season06/modern_family_ep+(24).mkv" }
+            ],
+            7: [
+                { title: "Episode 1", src: "modern_family/season07/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season07/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season07/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season07/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season07/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season07/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season07/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season07/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season07/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season07/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season07/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season07/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season07/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season07/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season07/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season07/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season07/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season07/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season07/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season07/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season07/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season07/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season07/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season07/modern_family_ep+(24).mkv" }
+
+            ],
+            8: [
+                { title: "Episode 1", src: "modern_family/season08/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season08/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season08/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season08/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season08/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season08/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season08/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season08/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season08/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season08/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season08/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season08/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season08/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season08/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season08/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season08/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season08/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season08/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season08/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season08/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season08/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season08/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season08/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season08/modern_family_ep+(24).mkv" }
+
+            ],
+            9: [
+                { title: "Episode 1", src: "modern_family/season09/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season09/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season09/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season09/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season09/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season09/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season09/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season09/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season09/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season09/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season09/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season09/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season09/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season09/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season09/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season09/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season09/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season09/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season09/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season09/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season09/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season09/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season09/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season09/modern_family_ep+(24).mkv" }
+
+            ],
+            10: [
+                { title: "Episode 1", src: "modern_family/season10/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season10/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season10/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season10/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season10/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season10/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season10/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season10/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season10/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season10/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season10/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season10/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season10/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season10/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season10/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season10/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season10/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season10/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season10/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season10/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season10/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season10/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season10/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season10/modern_family_ep+(24).mkv" }
+
+            ],
+            11: [
+                { title: "Episode 1", src: "modern_family/season11/modern_family_ep+(1).mkv" },
+                { title: "Episode 2", src: "modern_family/season11/modern_family_ep+(2).mkv" },
+                { title: "Episode 3", src: "modern_family/season11/modern_family_ep+(3).mkv" },
+                { title: "Episode 4", src: "modern_family/season11/modern_family_ep+(4).mkv" },
+                { title: "Episode 5", src: "modern_family/season11/modern_family_ep+(5).mkv" },
+                { title: "Episode 6", src: "modern_family/season11/modern_family_ep+(6).mkv" },
+                { title: "Episode 7", src: "modern_family/season11/modern_family_ep+(7).mkv" },
+                { title: "Episode 8", src: "modern_family/season11/modern_family_ep+(8).mkv" },
+                { title: "Episode 9", src: "modern_family/season11/modern_family_ep+(9).mkv" },
+                { title: "Episode 10", src: "modern_family/season11/modern_family_ep+(10).mkv" },
+                { title: "Episode 11", src: "modern_family/season11/modern_family_ep+(11).mkv" },
+                { title: "Episode 12", src: "modern_family/season11/modern_family_ep+(12).mkv" },
+                { title: "Episode 13", src: "modern_family/season11/modern_family_ep+(13).mkv" },
+                { title: "Episode 14", src: "modern_family/season11/modern_family_ep+(14).mkv" },
+                { title: "Episode 15", src: "modern_family/season11/modern_family_ep+(15).mkv" },
+                { title: "Episode 16", src: "modern_family/season11/modern_family_ep+(16).mkv" },
+                { title: "Episode 17", src: "modern_family/season11/modern_family_ep+(17).mkv" },
+                { title: "Episode 18", src: "modern_family/season11/modern_family_ep+(18).mkv" },
+                { title: "Episode 19", src: "modern_family/season11/modern_family_ep+(19).mkv" },
+                { title: "Episode 20", src: "modern_family/season11/modern_family_ep+(20).mkv" },
+                { title: "Episode 21", src: "modern_family/season11/modern_family_ep+(21).mkv" },
+                { title: "Episode 22", src: "modern_family/season11/modern_family_ep+(22).mkv" },
+                { title: "Episode 23", src: "modern_family/season11/modern_family_ep+(23).mkv" },
+                { title: "Episode 24", src: "modern_family/season11/modern_family_ep+(24).mkv" }
+
+            ],
+        };
+
+        function updateEpisodes() {
+            const season = document.getElementById("seasonSelect").value;
+            const episodeSelect = document.getElementById("episodeSelect");
+            episodeSelect.innerHTML = "";
+            const authKey = localStorage.getItem('authKey');
+
+            episodes[season].forEach((episode, index) => {
+                const option = document.createElement("option");
+                option.value = authKey + episode.src;
+                option.textContent = episode.title;
+                episodeSelect.appendChild(option);
+            });
+            updateVideo();
+        }
+
+        function updateVideo() {
+            const videoSource = document.getElementById("videoSource");
+            const videoPlayer = document.getElementById("videoPlayer");
+            videoSource.src = document.getElementById("episodeSelect").value;
+            videoPlayer.load();
+        }
+
+        function goBack() {
+            window.location.href = "../pages/landing_page.html"; // Change this to the actual main page URL
+        }
+
+        document.addEventListener("DOMContentLoaded", updateEpisodes);
+    </script>
+</body>
+</html>
